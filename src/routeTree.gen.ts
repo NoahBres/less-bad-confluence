@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SpacesRouteImport } from './routes/spaces'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SpacesSpaceKeyRouteImport } from './routes/spaces/$spaceKey'
+import { Route as SpacesSpaceKeyIndexRouteImport } from './routes/spaces/$spaceKey/index'
 import { Route as SpacesSpaceKeyPageIdRouteImport } from './routes/spaces/$spaceKey/$pageId'
 
 const SpacesRoute = SpacesRouteImport.update({
@@ -24,47 +24,47 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SpacesSpaceKeyRoute = SpacesSpaceKeyRouteImport.update({
-  id: '/$spaceKey',
-  path: '/$spaceKey',
+const SpacesSpaceKeyIndexRoute = SpacesSpaceKeyIndexRouteImport.update({
+  id: '/$spaceKey/',
+  path: '/$spaceKey/',
   getParentRoute: () => SpacesRoute,
 } as any)
 const SpacesSpaceKeyPageIdRoute = SpacesSpaceKeyPageIdRouteImport.update({
-  id: '/$pageId',
-  path: '/$pageId',
-  getParentRoute: () => SpacesSpaceKeyRoute,
+  id: '/$spaceKey/$pageId',
+  path: '/$spaceKey/$pageId',
+  getParentRoute: () => SpacesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/spaces': typeof SpacesRouteWithChildren
-  '/spaces/$spaceKey': typeof SpacesSpaceKeyRouteWithChildren
   '/spaces/$spaceKey/$pageId': typeof SpacesSpaceKeyPageIdRoute
+  '/spaces/$spaceKey': typeof SpacesSpaceKeyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/spaces': typeof SpacesRouteWithChildren
-  '/spaces/$spaceKey': typeof SpacesSpaceKeyRouteWithChildren
   '/spaces/$spaceKey/$pageId': typeof SpacesSpaceKeyPageIdRoute
+  '/spaces/$spaceKey': typeof SpacesSpaceKeyIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/spaces': typeof SpacesRouteWithChildren
-  '/spaces/$spaceKey': typeof SpacesSpaceKeyRouteWithChildren
   '/spaces/$spaceKey/$pageId': typeof SpacesSpaceKeyPageIdRoute
+  '/spaces/$spaceKey/': typeof SpacesSpaceKeyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/spaces' | '/spaces/$spaceKey' | '/spaces/$spaceKey/$pageId'
+  fullPaths: '/' | '/spaces' | '/spaces/$spaceKey/$pageId' | '/spaces/$spaceKey'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/spaces' | '/spaces/$spaceKey' | '/spaces/$spaceKey/$pageId'
+  to: '/' | '/spaces' | '/spaces/$spaceKey/$pageId' | '/spaces/$spaceKey'
   id:
     | '__root__'
     | '/'
     | '/spaces'
-    | '/spaces/$spaceKey'
     | '/spaces/$spaceKey/$pageId'
+    | '/spaces/$spaceKey/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,41 +88,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/spaces/$spaceKey': {
-      id: '/spaces/$spaceKey'
+    '/spaces/$spaceKey/': {
+      id: '/spaces/$spaceKey/'
       path: '/$spaceKey'
       fullPath: '/spaces/$spaceKey'
-      preLoaderRoute: typeof SpacesSpaceKeyRouteImport
+      preLoaderRoute: typeof SpacesSpaceKeyIndexRouteImport
       parentRoute: typeof SpacesRoute
     }
     '/spaces/$spaceKey/$pageId': {
       id: '/spaces/$spaceKey/$pageId'
-      path: '/$pageId'
+      path: '/$spaceKey/$pageId'
       fullPath: '/spaces/$spaceKey/$pageId'
       preLoaderRoute: typeof SpacesSpaceKeyPageIdRouteImport
-      parentRoute: typeof SpacesSpaceKeyRoute
+      parentRoute: typeof SpacesRoute
     }
   }
 }
 
-interface SpacesSpaceKeyRouteChildren {
-  SpacesSpaceKeyPageIdRoute: typeof SpacesSpaceKeyPageIdRoute
-}
-
-const SpacesSpaceKeyRouteChildren: SpacesSpaceKeyRouteChildren = {
-  SpacesSpaceKeyPageIdRoute: SpacesSpaceKeyPageIdRoute,
-}
-
-const SpacesSpaceKeyRouteWithChildren = SpacesSpaceKeyRoute._addFileChildren(
-  SpacesSpaceKeyRouteChildren,
-)
-
 interface SpacesRouteChildren {
-  SpacesSpaceKeyRoute: typeof SpacesSpaceKeyRouteWithChildren
+  SpacesSpaceKeyPageIdRoute: typeof SpacesSpaceKeyPageIdRoute
+  SpacesSpaceKeyIndexRoute: typeof SpacesSpaceKeyIndexRoute
 }
 
 const SpacesRouteChildren: SpacesRouteChildren = {
-  SpacesSpaceKeyRoute: SpacesSpaceKeyRouteWithChildren,
+  SpacesSpaceKeyPageIdRoute: SpacesSpaceKeyPageIdRoute,
+  SpacesSpaceKeyIndexRoute: SpacesSpaceKeyIndexRoute,
 }
 
 const SpacesRouteWithChildren =

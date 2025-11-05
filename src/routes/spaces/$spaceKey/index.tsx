@@ -1,26 +1,22 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/spaces/$spaceKey')({
+export const Route = createFileRoute('/spaces/$spaceKey/')({
   component: SpaceComponent,
-})
+});
 
 function SpaceComponent() {
-  const { spaceKey } = Route.useParams()
+  const { spaceKey } = Route.useParams();
   return (
     <div>
-      <h1>Space: {spaceKey}</h1>
+      <h1>Space: {spaceKey}</h1> yuh
       <nav>
         <Link to="/">&larr; Back to Home</Link>
       </nav>
-
       <div>
         <h2>Pages in this Space</h2>
         <ul>
           <li>
-            <Link
-              to="/spaces/$spaceKey/$pageId"
-              params={{ spaceKey, pageId: 'getting-started' }}
-            >
+            <Link to="/spaces/$spaceKey/$pageId" params={{ spaceKey, pageId: 'getting-started' }}>
               Getting Started
             </Link>
           </li>
@@ -30,19 +26,15 @@ function SpaceComponent() {
             </Link>
           </li>
           <li>
-            <Link
-              to="/spaces/$spaceKey/$pageId"
-              params={{ spaceKey, pageId: 'documentation' }}
-            >
+            <Link to="/spaces/$spaceKey/$pageId" params={{ spaceKey, pageId: 'documentation' }}>
               Documentation
             </Link>
           </li>
         </ul>
       </div>
-
       <div>
         <button>Create New Page</button>
       </div>
     </div>
-  )
+  );
 }
