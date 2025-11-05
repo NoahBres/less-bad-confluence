@@ -1,9 +1,16 @@
-function App() {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  )
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { routeTree } from './routeTree'
+
+// Create a new router instance
+const router = createRouter({ routeTree })
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
 }
 
-export default App
+export default function App() {
+  return <RouterProvider router={router} />
+}
