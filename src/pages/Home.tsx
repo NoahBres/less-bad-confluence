@@ -29,6 +29,21 @@ export function Home() {
               </Link>
             </li>
           </ul>
+
+          <div className="mt-8 pt-6 border-t border-border">
+            <h2 className="text-foreground text-2xl font-semibold mb-4">Quick Links</h2>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/spaces/$spaceKey/pages/$pageId"
+                  params={{ spaceKey: 'DEMO', pageId: 'sample-page' }}
+                  className="text-primary hover:text-primary/80 text-lg underline transition-colors"
+                >
+                  Sample Page
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
