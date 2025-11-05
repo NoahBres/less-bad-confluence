@@ -8,7 +8,7 @@ function SpaceComponent() {
   const { spaceKey } = Route.useParams();
   return (
     <div>
-      <h1>Space: {spaceKey}</h1> yuh
+      <h1>Space: {spaceKey}</h1>
       <nav>
         <Link to="/">&larr; Back to Home</Link>
       </nav>

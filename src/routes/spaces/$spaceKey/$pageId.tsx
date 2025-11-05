@@ -1,19 +1,28 @@
 import { FileText, FolderOpen, Home } from 'lucide-react';
 
+import * as React from 'react';
+
 import { Link, createFileRoute } from '@tanstack/react-router';
 
+import { NavMain } from '@/components/nav-main';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import { Separator } from '@/components/ui/separator';
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarFooter,
   SidebarHeader,
   SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
+  SidebarRail,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 
@@ -24,117 +33,141 @@ export const Route = createFileRoute('/spaces/$spaceKey/$pageId')({
 function PageComponent() {
   const { spaceKey, pageId } = Route.useParams();
 
+  const data = {
+    navMain: [
+      {
+        title: 'Home',
+        url: '/',
+        icon: Home,
+        isActive: false,
+      },
+      {
+        title: 'Spaces',
+        url: '#',
+        icon: FolderOpen,
+        isActive: true,
+        items: [
+          {
+            title: 'Getting Started',
+            url: '#',
+          },
+          {
+            title: 'Overview',
+            url: '#',
+          },
+          {
+            title: 'Documentation',
+            url: '#',
+          },
+          {
+            title: 'Sample Page',
+            url: '#',
+          },
+        ],
+      },
+    ],
+  };
+
+  const sidebarData = React.useMemo(() => {
+    if (spaceKey) {
+      return {
+        navMain: [
+          {
+            title: 'Home',
+            url: '/',
+            icon: Home,
+            isActive: false,
+          },
+          {
+            title: spaceKey,
+            url: `/spaces/${spaceKey}`,
+            icon: FolderOpen,
+            isActive: true,
+            items: [
+              {
+                title: 'Getting Started',
+                url: `/spaces/${spaceKey}/getting-started`,
+                isActive: pageId === 'getting-started',
+              },
+              {
+                title: 'Overview',
+                url: `/spaces/${spaceKey}/overview`,
+                isActive: pageId === 'overview',
+              },
+              {
+                title: 'Documentation',
+                url: `/spaces/${spaceKey}/documentation`,
+                isActive: pageId === 'documentation',
+              },
+              {
+                title: 'Sample Page',
+                url: `/spaces/${spaceKey}/sample-page`,
+                isActive: pageId === 'sample-page',
+              },
+            ],
+          },
+        ],
+      };
+    }
+    return data;
+  }, [spaceKey, pageId]);
+
   return (
-    <SidebarProvider defaultOpen={true}>
-      <Sidebar variant="sidebar" collapsible="offcanvas">
-        <SidebarHeader>
-          <Link to="/" className="flex items-center gap-2 px-2 py-1 text-lg font-semibold">
-            Less Bad Confluence
-          </Link>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link to="/">
-                      <Home className="h-4 w-4" />
-                      <span>Home</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive>
-                    <Link to="/spaces/$spaceKey" params={{ spaceKey }}>
-                      <FolderOpen className="h-4 w-4" />
-                      <span>{spaceKey}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+    <SidebarProvider>
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="min-h-screen max-w-screen rounded-lg border md:min-w-[450px]"
+      >
+        <ResizablePanel defaultSize={25}>
+          <Sidebar collapsible="none">
+            <SidebarHeader>
+              <div className="flex items-center gap-2 px-2 py-1 text-lg font-semibold">
+                <FileText className="h-6 w-6" />
+                <span>Less Bad Confluence</span>
+              </div>
+            </SidebarHeader>
+            <SidebarContent>
+              <NavMain items={sidebarData.navMain} />
+            </SidebarContent>
+            <SidebarFooter>footer</SidebarFooter>
+            <SidebarRail />
+          </Sidebar>
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel defaultSize={75}>
+          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+            <div className="flex items-center gap-2 px-4">
+              <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbLink asChild>
+                      <Link to="/">Home</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbLink asChild>
+                      <Link to="/spaces/$spaceKey" params={{ spaceKey }}>
+                        {spaceKey}
+                      </Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>{pageId}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </header>
 
-          <SidebarGroup>
-            <SidebarGroupLabel>Pages in {spaceKey}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      to="/spaces/$spaceKey/$pageId"
-                      params={{ spaceKey, pageId: 'getting-started' }}
-                    >
-                      <FileText className="h-4 w-4" />
-                      <span>Getting Started</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link to="/spaces/$spaceKey/$pageId" params={{ spaceKey, pageId: 'overview' }}>
-                      <FileText className="h-4 w-4" />
-                      <span>Overview</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      to="/spaces/$spaceKey/$pageId"
-                      params={{ spaceKey, pageId: 'documentation' }}
-                    >
-                      <FileText className="h-4 w-4" />
-                      <span>Documentation</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={pageId === 'sample-page'}>
-                    <Link
-                      to="/spaces/$spaceKey/$pageId"
-                      params={{ spaceKey, pageId: 'sample-page' }}
-                    >
-                      <FileText className="h-4 w-4" />
-                      <span>sample-page</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-      </Sidebar>
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <div className="h-4 w-px bg-gray-200" />
-          <nav className="text-muted-foreground flex items-center gap-2 text-sm">
-            <Link to="/" className="hover:text-foreground">
-              Home
-            </Link>
-            <span>/</span>
-            <Link to="/spaces/$spaceKey" params={{ spaceKey }} className="hover:text-foreground">
-              {spaceKey}
-            </Link>
-            <span>/</span>
-            <span className="text-foreground font-medium">{pageId}</span>
-          </nav>
-        </header>
-
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          <div>
-            <h1 className="text-3xl font-bold">Page: {pageId}</h1>
-            {/*<p className="text-muted-foreground">*/}
-            <p className="text-red-500">
-              Space: <strong>{spaceKey}</strong> yuhhh
-            </p>
-          </div>
-        </div>
-      </SidebarInset>
-      yuh
+          <main className="flex h-full items-center justify-center p-6">
+            <span className="font-semibold">Content</span>
+          </main>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </SidebarProvider>
   );
 }
