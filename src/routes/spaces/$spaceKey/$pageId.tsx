@@ -1,13 +1,12 @@
-import { Link } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router'
+import EditorPage from '../../../EditorPage'
 
-import EditorPage from '../EditorPage';
+export const Route = createFileRoute('/spaces/$spaceKey/$pageId')({
+  component: PageComponent,
+})
 
-interface PageProps {
-  spaceKey: string;
-  pageId: string;
-}
-
-export function Page({ spaceKey, pageId }: PageProps) {
+function PageComponent() {
+  const { spaceKey, pageId } = Route.useParams()
   return (
     <div>
       <nav
@@ -35,5 +34,5 @@ export function Page({ spaceKey, pageId }: PageProps) {
 
       <EditorPage />
     </div>
-  );
+  )
 }

@@ -12,8 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SpacesRouteImport } from './routes/spaces'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SpacesSpaceKeyRouteImport } from './routes/spaces/$spaceKey'
-import { Route as SpacesSpaceKeyPagesRouteImport } from './routes/spaces/$spaceKey/pages'
-import { Route as SpacesSpaceKeyPagesPageIdRouteImport } from './routes/spaces/$spaceKey/pages/$pageId'
+import { Route as SpacesSpaceKeyPageIdRouteImport } from './routes/spaces/$spaceKey/$pageId'
 
 const SpacesRoute = SpacesRouteImport.update({
   id: '/spaces',
@@ -30,62 +29,42 @@ const SpacesSpaceKeyRoute = SpacesSpaceKeyRouteImport.update({
   path: '/$spaceKey',
   getParentRoute: () => SpacesRoute,
 } as any)
-const SpacesSpaceKeyPagesRoute = SpacesSpaceKeyPagesRouteImport.update({
-  id: '/pages',
-  path: '/pages',
+const SpacesSpaceKeyPageIdRoute = SpacesSpaceKeyPageIdRouteImport.update({
+  id: '/$pageId',
+  path: '/$pageId',
   getParentRoute: () => SpacesSpaceKeyRoute,
 } as any)
-const SpacesSpaceKeyPagesPageIdRoute =
-  SpacesSpaceKeyPagesPageIdRouteImport.update({
-    id: '/$pageId',
-    path: '/$pageId',
-    getParentRoute: () => SpacesSpaceKeyPagesRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/spaces': typeof SpacesRouteWithChildren
   '/spaces/$spaceKey': typeof SpacesSpaceKeyRouteWithChildren
-  '/spaces/$spaceKey/pages': typeof SpacesSpaceKeyPagesRouteWithChildren
-  '/spaces/$spaceKey/pages/$pageId': typeof SpacesSpaceKeyPagesPageIdRoute
+  '/spaces/$spaceKey/$pageId': typeof SpacesSpaceKeyPageIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/spaces': typeof SpacesRouteWithChildren
   '/spaces/$spaceKey': typeof SpacesSpaceKeyRouteWithChildren
-  '/spaces/$spaceKey/pages': typeof SpacesSpaceKeyPagesRouteWithChildren
-  '/spaces/$spaceKey/pages/$pageId': typeof SpacesSpaceKeyPagesPageIdRoute
+  '/spaces/$spaceKey/$pageId': typeof SpacesSpaceKeyPageIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/spaces': typeof SpacesRouteWithChildren
   '/spaces/$spaceKey': typeof SpacesSpaceKeyRouteWithChildren
-  '/spaces/$spaceKey/pages': typeof SpacesSpaceKeyPagesRouteWithChildren
-  '/spaces/$spaceKey/pages/$pageId': typeof SpacesSpaceKeyPagesPageIdRoute
+  '/spaces/$spaceKey/$pageId': typeof SpacesSpaceKeyPageIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/spaces'
-    | '/spaces/$spaceKey'
-    | '/spaces/$spaceKey/pages'
-    | '/spaces/$spaceKey/pages/$pageId'
+  fullPaths: '/' | '/spaces' | '/spaces/$spaceKey' | '/spaces/$spaceKey/$pageId'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/spaces'
-    | '/spaces/$spaceKey'
-    | '/spaces/$spaceKey/pages'
-    | '/spaces/$spaceKey/pages/$pageId'
+  to: '/' | '/spaces' | '/spaces/$spaceKey' | '/spaces/$spaceKey/$pageId'
   id:
     | '__root__'
     | '/'
     | '/spaces'
     | '/spaces/$spaceKey'
-    | '/spaces/$spaceKey/pages'
-    | '/spaces/$spaceKey/pages/$pageId'
+    | '/spaces/$spaceKey/$pageId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,40 +95,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SpacesSpaceKeyRouteImport
       parentRoute: typeof SpacesRoute
     }
-    '/spaces/$spaceKey/pages': {
-      id: '/spaces/$spaceKey/pages'
-      path: '/pages'
-      fullPath: '/spaces/$spaceKey/pages'
-      preLoaderRoute: typeof SpacesSpaceKeyPagesRouteImport
-      parentRoute: typeof SpacesSpaceKeyRoute
-    }
-    '/spaces/$spaceKey/pages/$pageId': {
-      id: '/spaces/$spaceKey/pages/$pageId'
+    '/spaces/$spaceKey/$pageId': {
+      id: '/spaces/$spaceKey/$pageId'
       path: '/$pageId'
-      fullPath: '/spaces/$spaceKey/pages/$pageId'
-      preLoaderRoute: typeof SpacesSpaceKeyPagesPageIdRouteImport
-      parentRoute: typeof SpacesSpaceKeyPagesRoute
+      fullPath: '/spaces/$spaceKey/$pageId'
+      preLoaderRoute: typeof SpacesSpaceKeyPageIdRouteImport
+      parentRoute: typeof SpacesSpaceKeyRoute
     }
   }
 }
 
-interface SpacesSpaceKeyPagesRouteChildren {
-  SpacesSpaceKeyPagesPageIdRoute: typeof SpacesSpaceKeyPagesPageIdRoute
-}
-
-const SpacesSpaceKeyPagesRouteChildren: SpacesSpaceKeyPagesRouteChildren = {
-  SpacesSpaceKeyPagesPageIdRoute: SpacesSpaceKeyPagesPageIdRoute,
-}
-
-const SpacesSpaceKeyPagesRouteWithChildren =
-  SpacesSpaceKeyPagesRoute._addFileChildren(SpacesSpaceKeyPagesRouteChildren)
-
 interface SpacesSpaceKeyRouteChildren {
-  SpacesSpaceKeyPagesRoute: typeof SpacesSpaceKeyPagesRouteWithChildren
+  SpacesSpaceKeyPageIdRoute: typeof SpacesSpaceKeyPageIdRoute
 }
 
 const SpacesSpaceKeyRouteChildren: SpacesSpaceKeyRouteChildren = {
-  SpacesSpaceKeyPagesRoute: SpacesSpaceKeyPagesRouteWithChildren,
+  SpacesSpaceKeyPageIdRoute: SpacesSpaceKeyPageIdRoute,
 }
 
 const SpacesSpaceKeyRouteWithChildren = SpacesSpaceKeyRoute._addFileChildren(
