@@ -1,10 +1,9 @@
-import { FileText, FolderOpen, Home } from 'lucide-react';
+import { ChevronRight, FileText, FolderOpen, Home, type LucideIcon } from 'lucide-react';
 
 import * as React from 'react';
 
 import { Link, createFileRoute } from '@tanstack/react-router';
 
-import { NavMain } from '@/components/nav-main';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,18 +12,97 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { Separator } from '@/components/ui/separator';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+
+function NavMain({
+  items,
+}: {
+  items: {
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
+    items?: {
+      title: string;
+      url: string;
+      isActive?: boolean;
+    }[];
+  }[];
+}) {
+  return (
+    <SidebarGroup>
+      <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+      <SidebarMenu>
+        {items.map(item => {
+          if (item.items) {
+            return (
+              <Collapsible
+                key={item.title}
+                asChild
+                defaultOpen={item.isActive}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton tooltip={item.title} isActive={item.isActive}>
+                      {item.icon && <item.icon />}
+                      <span>{item.title}</span>
+                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {item.items.map(subItem => (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubButton asChild isActive={subItem.isActive}>
+                            <Link to={subItem.url}>
+                              <span>{subItem.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
+            );
+          } else {
+            return (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild tooltip={item.title} isActive={item.isActive}>
+                  <Link to={item.url}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          }
+        })}
+      </SidebarMenu>
+    </SidebarGroup>
+  );
+}
 
 export const Route = createFileRoute('/spaces/$spaceKey/$pageId')({
   component: PageComponent,
@@ -118,15 +196,18 @@ function PageComponent() {
         direction="horizontal"
         className="min-h-screen max-w-screen rounded-lg border md:min-w-[450px]"
       >
-        <ResizablePanel defaultSize={25}>
+        <ResizablePanel defaultSize={25} minSize={15} collapsible={true} maxSize={75}>
           <Sidebar collapsible="none">
-            <SidebarHeader>
+            <SidebarHeader className="pl-4">
               <div className="flex items-center gap-2 px-2 py-1 text-lg font-semibold">
-                <FileText className="h-6 w-6" />
-                <span>Less Bad Confluence</span>
+                <span className="text-xl leading-4 lowercase">
+                  Less Bad
+                  <br />
+                  Confluence
+                </span>
               </div>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent className="pl-2">
               <NavMain items={sidebarData.navMain} />
             </SidebarContent>
             <SidebarFooter>footer</SidebarFooter>
@@ -134,7 +215,7 @@ function PageComponent() {
           </Sidebar>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={75}>
+        <ResizablePanel>
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
