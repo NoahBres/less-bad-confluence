@@ -1,8 +1,7 @@
-import React from 'react'
-import { Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router';
 
 interface SpaceProps {
-  spaceKey: string
+  spaceKey: string;
 }
 
 export function Space({ spaceKey }: SpaceProps) {
@@ -25,10 +24,7 @@ export function Space({ spaceKey }: SpaceProps) {
             </Link>
           </li>
           <li>
-            <Link
-              to="/spaces/$spaceKey/pages/$pageId"
-              params={{ spaceKey, pageId: 'overview' }}
-            >
+            <Link to="/spaces/$spaceKey/pages/$pageId" params={{ spaceKey, pageId: 'overview' }}>
               Overview
             </Link>
           </li>
@@ -47,5 +43,5 @@ export function Space({ spaceKey }: SpaceProps) {
         <button>Create New Page</button>
       </div>
     </div>
-  )
+  );
 }

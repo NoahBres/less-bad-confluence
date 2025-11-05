@@ -26,4 +26,4 @@ The API covers all major Confluence functionality:
 
 ---
 
-*Generated from official Atlassian sources on November 2024*
+_Generated from official Atlassian sources on November 2024_

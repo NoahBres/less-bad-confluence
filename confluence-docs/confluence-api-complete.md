@@ -1,18 +1,18 @@
 # Confluence Server REST API v10.2.0 - Complete Documentation
 
-*Generated on: 2025-11-05T04:28:07.800Z*
+_Generated on: 2025-11-05T04:28:07.800Z_
 
 ## Overview
 
-This is the reference document for the Atlassian Confluence DC REST API. The REST API is for developers who want to: 
+This is the reference document for the Atlassian Confluence DC REST API. The REST API is for developers who want to:
 
- - integrate Confluence with other applications;
+- integrate Confluence with other applications;
 
- - create scripts that interact with Confluence; or
+- create scripts that interact with Confluence; or
 
- - develop plugins that enhance the Confluence UI, using REST to interact with the backend. 
+- develop plugins that enhance the Confluence UI, using REST to interact with the backend.
 
- You can read more about developing Confluence plugins in the [Confluence Developer Documentation](https://developer.atlassian.com/server/confluence/).
+You can read more about developing Confluence plugins in the [Confluence Developer Documentation](https://developer.atlassian.com/server/confluence/).
 
 **Base URL**: `{{protocol}}://{{host}}/{{basePath}}`
 **Version**: 10.2.0
@@ -115,7 +115,7 @@ This is the reference document for the Atlassian Confluence DC REST API. The RES
 
 **Description**: Creates a personal space for a user.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/admin/space/personal/morganlee`
 
@@ -139,13 +139,11 @@ Example request URI:
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/admin/user/:username/password`
 
-**Description**: Change the password for the user identified by the username. 
+**Description**: Change the password for the user identified by the username.
 
-**Validation rules** : 
+**Validation rules** :
 
-- The new password should not be null or blank. 
-
-
+- The new password should not be null or blank.
 
 **Headers**:
 
@@ -174,7 +172,7 @@ Example request URI:
 
 - The userName should not be null or blank
 
-- The userName should not contain any of these characters \ , +  ' "
+- The userName should not contain any of these characters \ , + ' "
 
 - The userName should not contain any whitespace characters
 
@@ -215,12 +213,12 @@ Example request URI:
 
 **Description**: Updates the user identified by the username. The following fields can be updated: email, full name.
 "**Requirements**:
+
 - The fullName should not be blank
 - The fullName should not contain any forbidden characters ()
 - The fullName should not be anonymous (in english or other system locale)
 - The email should not be blank
 - The email should be a valid email address
-
 
 **Headers**:
 
@@ -270,6 +268,7 @@ Example request URI:
 
 **Description**: Gets a paginated collection of all active users (users which count into license usage).
 This will exclude users that are:
+
 - anonymous,
 - deactivated,
 - externally deleted,
@@ -279,6 +278,7 @@ This will exclude users that are:
 This feature relies on search index and might not be accurate when site reindex is in progress.
 
 Depending on the type of the user the response can include the following fields:
+
 - `email`: The user's email address.
 - `lastLogin`: The date and time of the user's last successful login. Required "lastLogin" expansion.
 - `type`: The type of user (e.g., `known`, `anonymous`).
@@ -291,7 +291,6 @@ Example request URI(s):
 `http://example.com/confluence/rest/api/admin/users/list/active?start=0`
 `http://example.com/confluence/rest/api/admin/users/list/active?start=0&limit=100`
 `http://example.com/confluence/rest/api/admin/users/list/active?start=0&limit=100&expand=status`
-
 
 **Headers**:
 
@@ -357,21 +356,21 @@ Form Data:
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/content/:id/child/attachment/:attachmentId/move`
 
-**Description**: Move an attachment to a different content entity object. 
+**Description**: Move an attachment to a different content entity object.
 
-**When moving the attachment**, the name of the attachment can be updated as well. 
+**When moving the attachment**, the name of the attachment can be updated as well.
 
-In order to protect against XSRF attacks, because this method accepts multipart/form-data, it has XSRF protection on it. This means you must submit a header of `X-Atlassian-Token: nocheck` with the request, otherwise it will be blocked. 
+In order to protect against XSRF attacks, because this method accepts multipart/form-data, it has XSRF protection on it. This means you must submit a header of `X-Atlassian-Token: nocheck` with the request, otherwise it will be blocked.
 
-A simple example to move an attachment with id "456" in a container with id "123" to a container with "789": 
+A simple example to move an attachment with id "456" in a container with id "123" to a container with "789":
 
-`curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" "http://myhost/rest/api/content/123/child/attachment/456/move?newContentId=789"` 
+`curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" "http://myhost/rest/api/content/123/child/attachment/456/move?newContentId=789"`
 
-An example to move the same file, while also renaming it to "my-new-name": 
+An example to move the same file, while also renaming it to "my-new-name":
 
-`curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" "http://myhost/rest/api/content/123/child/attachment/456/move?newContentId=789&newName=my-new-name"` 
+`curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" "http://myhost/rest/api/content/123/child/attachment/456/move?newContentId=789&newName=my-new-name"`
 
-This can also be used to only rename an attachment: 
+This can also be used to only rename an attachment:
 
 `curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" "http://myhost/rest/api/content/123/child/attachment/456/move?newContentId=123&newName=my-new-name"`
 
@@ -527,19 +526,19 @@ Form Data:
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/backup-restore/restore/site/upload`
 
-**Description**: This resource expects a multipart post. The media-type multipart/form-data is defined in RFC 1867. 
+**Description**: This resource expects a multipart post. The media-type multipart/form-data is defined in RFC 1867.
 
-Most client libraries have classes that make dealing with multipart posts simple. 
+Most client libraries have classes that make dealing with multipart posts simple.
 
-For instance, in Java the Apache HTTP Components library provides a MultiPartEntity that makes it simple to submit a multipart POST. 
+For instance, in Java the Apache HTTP Components library provides a MultiPartEntity that makes it simple to submit a multipart POST.
 
- In order to protect against XSRF attacks, because this method accepts multipart/form-data, it has XSRF protection on it.  This means you must submit a header of X-Atlassian-Token: nocheck with the request, otherwise it will be blocked. 
+In order to protect against XSRF attacks, because this method accepts multipart/form-data, it has XSRF protection on it. This means you must submit a header of X-Atlassian-Token: nocheck with the request, otherwise it will be blocked.
 
- The name of the multipart/form-data parameter that contains attachments must be "file". 
+The name of the multipart/form-data parameter that contains attachments must be "file".
 
- An example to attach the file: 
+An example to attach the file:
 
- curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" -F  file=@myfile.zip http://myhost/rest/api/backup-restore/restore/space/upload 
+curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" -F file=@myfile.zip http://myhost/rest/api/backup-restore/restore/space/upload
 
 .
 
@@ -601,19 +600,19 @@ Form Data:
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/backup-restore/restore/space/upload`
 
-**Description**: This resource expects a multipart post. The media-type multipart/form-data is defined in RFC 1867. 
+**Description**: This resource expects a multipart post. The media-type multipart/form-data is defined in RFC 1867.
 
-Most client libraries have classes that make dealing with multipart posts simple. 
+Most client libraries have classes that make dealing with multipart posts simple.
 
-For instance, in Java the Apache HTTP Components library provides a MultiPartEntity that makes it simple to submit a multipart POST. 
+For instance, in Java the Apache HTTP Components library provides a MultiPartEntity that makes it simple to submit a multipart POST.
 
- In order to protect against XSRF attacks, because this method accepts multipart/form-data, it has XSRF protection on it.  This means you must submit a header of X-Atlassian-Token: nocheck with the request, otherwise it will be blocked. 
+In order to protect against XSRF attacks, because this method accepts multipart/form-data, it has XSRF protection on it. This means you must submit a header of X-Atlassian-Token: nocheck with the request, otherwise it will be blocked.
 
- The name of the multipart/form-data parameter that contains attachments must be "file". 
+The name of the multipart/form-data parameter that contains attachments must be "file".
 
- An example to attach the file: 
+An example to attach the file:
 
- curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" -F  file=@myfile.zip http://myhost/rest/api/backup-restore/restore/space/upload 
+curl -D- -u admin:admin -X POST -H "X-Atlassian-Token: nocheck" -F file=@myfile.zip http://myhost/rest/api/backup-restore/restore/space/upload
 
 .
 
@@ -716,7 +715,7 @@ Example request URI:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/child`
 
-**Description**: Returns a map of the direct children of a piece of Content. Content can have multiple types of children. For example, a Page can have children that are also Pages, but it can also have Comments and Attachments. 
+**Description**: Returns a map of the direct children of a piece of Content. Content can have multiple types of children. For example, a Page can have children that are also Pages, but it can also have Comments and Attachments.
 
 The types of the children returned is specified by the `expand` query parameter in the request. This parameter can include expands for multiple child types. If no types are included in the `expand` parameter, the map returned will just list the child types that are available to be expanded for the content referenced by the `id` path parameter.
 
@@ -744,7 +743,7 @@ The types of the children returned is specified by the `expand` query parameter 
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/child/comment`
 
-**Description**: Returns the comments of a piece of Content. Example request URI(s): 
+**Description**: Returns the comments of a piece of Content. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content/1234/child/comment`
 - `http://example.com/confluence/rest/api/content/1234/child/comment?expand=body.view`
@@ -766,9 +765,9 @@ The types of the children returned is specified by the `expand` query parameter 
 **Path**: `{{basePath}}rest/api/cluster/nodes`
 
 **Description**: Returns a paginated list of information about each node in a cluster. Example request URI(s):
+
 - `https://example.com/confluence/rest/api/cluster/nodes`
 - `https://example.com/confluence/rest/api/cluster/nodes?start=0&limit=10`
-
 
 **Headers**:
 
@@ -825,7 +824,7 @@ The types of the children returned is specified by the `expand` query parameter 
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/contentbody/convert/:to`
 
-**Description**: Converts between content body representations. Not all representations can be converted to/from other formats. Supported conversions: 
+**Description**: Converts between content body representations. Not all representations can be converted to/from other formats. Supported conversions:
 
 - `storage -> view,export_view,styled_view,editor`
 - `editor -> storage`
@@ -857,17 +856,17 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/descendant`
 
-**Description**: Returns a map of the descendants of a piece of Content. Content can have multiple types of descendants - for example a Page can have descendants that are also Pages, but it can also have Comments and Attachments. 
+**Description**: Returns a map of the descendants of a piece of Content. Content can have multiple types of descendants - for example a Page can have descendants that are also Pages, but it can also have Comments and Attachments.
 
-The ContentType(s) of the descendants returned is specified by the `expand` query parameter in the request - this parameter can include expands for multiple descendant types. If no types are included in the expand parameter, the map returned will just list the descendant types that are available to be expanded for the Content referenced by the `id` path parameter. 
+The ContentType(s) of the descendants returned is specified by the `expand` query parameter in the request - this parameter can include expands for multiple descendant types. If no types are included in the expand parameter, the map returned will just list the descendant types that are available to be expanded for the Content referenced by the `id` path parameter.
 
-Currently the only supported descendants are comment descendants of non-comment Content. 
+Currently the only supported descendants are comment descendants of non-comment Content.
 
-Example request URI(s): 
+Example request URI(s):
 
-`http://example.com/confluence/rest/api/content/1234/descendant` 
+`http://example.com/confluence/rest/api/content/1234/descendant`
 
-`http://example.com/confluence/rest/api/content/1234/descendant?expand=comment.body.VIEW` 
+`http://example.com/confluence/rest/api/content/1234/descendant?expand=comment.body.VIEW`
 
 `http://example.com/confluence/rest/api/content/1234/descendant?expand=comment`
 
@@ -882,13 +881,13 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/descendant/:type`
 
-**Description**: Returns the direct descendants of a piece of Content. The ContentType(s) of the descendants returned is specified by the `type` path parameter in the request. Currently the only supported descendants are comment descendants of non-comment Content. 
+**Description**: Returns the direct descendants of a piece of Content. The ContentType(s) of the descendants returned is specified by the `type` path parameter in the request. Currently the only supported descendants are comment descendants of non-comment Content.
 
-Example request URI(s): 
+Example request URI(s):
 
-`http://example.com/confluence/rest/api/content/1234/descendant/comment` 
+`http://example.com/confluence/rest/api/content/1234/descendant/comment`
 
-`http://example.com/confluence/rest/api/content/1234/descendant/comment?expand=body.VIEW` 
+`http://example.com/confluence/rest/api/content/1234/descendant/comment?expand=body.VIEW`
 
 `http://example.com/confluence/rest/api/content/1234/descendant/comment?start=20&limit=10`
 
@@ -905,7 +904,7 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/label`
 
-**Description**: Returns the list of labels on a piece of Content. Example request URI(s): 
+**Description**: Returns the list of labels on a piece of Content. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content/1234/label`
 - `http://example.com/confluence/rest/api/content/1234/label?prefix=global&start=0&limit=200`
@@ -961,7 +960,7 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/property`
 
-**Description**: Returns a paginated list of content properties. Example request URI(s): 
+**Description**: Returns a paginated list of content properties. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content/1234/property?expand=content,version`
 
@@ -996,7 +995,7 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/property/:key`
 
-**Description**: Returns a content property. Example request URI(s): 
+**Description**: Returns a content property. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content/1234/property/example-property-key?expand=content,version`
 
@@ -1060,7 +1059,7 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content`
 
-**Description**: Returns a paginated list of Content. Example request URI(s): 
+**Description**: Returns a paginated list of Content. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content?spaceKey=TST&title=Cheese&expand=space,body.view,version,container`
 - `http://example.com/confluence/rest/api/content?type=blogpost&spaceKey=TST&title=Bacon&postingDay=2014-02-13&expand=space,body.view,version,container`
@@ -1096,7 +1095,7 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id`
 
-**Description**: Returns a piece of Content. Example request URI(s): 
+**Description**: Returns a piece of Content. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content/1234?expand=space,body.view,version,container`
 - `http://example.com/confluence/rest/api/content/1234?status=any`
@@ -1112,7 +1111,7 @@ Example request URI(s):
 **Method**: `DELETE`
 **Path**: `{{basePath}}rest/api/content/:id`
 
-**Description**: Trashes or purges a piece of Content, based on its ContentType and ContentStatus. 
+**Description**: Trashes or purges a piece of Content, based on its ContentType and ContentStatus.
 
 There are three cases:
 
@@ -1133,7 +1132,7 @@ There are three cases:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/history`
 
-**Description**: Returns the history of a particular piece of content. Example request URI(s): 
+**Description**: Returns the history of a particular piece of content. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content/1234/history`
 - `http://example.com/confluence/rest/api/content/1234/history?expand=previousVersion,nextVersion,lastUpdated`
@@ -1151,11 +1150,11 @@ There are three cases:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/history/:version/macro/hash/:hash`
 
-**Description**: Returns the body of a macro (in storage format) with the given hash. This resource is primarily used by connect applications that require the body of macro to perform their work. 
+**Description**: Returns the body of a macro (in storage format) with the given hash. This resource is primarily used by connect applications that require the body of macro to perform their work.
 
-The hash is generated by connect during render time of the local macro holder and is usually only relevant during the scope of one request. For optimisation purposes, this hash will usually live for multiple requests. 
+The hash is generated by connect during render time of the local macro holder and is usually only relevant during the scope of one request. For optimisation purposes, this hash will usually live for multiple requests.
 
-Collecting a macro by its hash should now be considered deprecated and will be replaced, transparently with macroIds. This resource is currently only called from connect addons which will eventually all use the `getContentById` resource. 
+Collecting a macro by its hash should now be considered deprecated and will be replaced, transparently with macroIds. This resource is currently only called from connect addons which will eventually all use the `getContentById` resource.
 
 To make the migration as seamless as possible, this resource will match macros against a generated hash or a stored macroId. This will allow add ons to work during the migration period.
 
@@ -1170,9 +1169,9 @@ To make the migration as seamless as possible, this resource will match macros a
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/:id/history/:version/macro/id/:macroId`
 
-**Description**: Returns the body of a macro (in storage format) with the given id. This resource is primarily used by connect applications that require the body of macro to perform their work. 
+**Description**: Returns the body of a macro (in storage format) with the given id. This resource is primarily used by connect applications that require the body of macro to perform their work.
 
-When content is created, if no macroId is specified, then Confluence will generate a random id. The id is persisted as the content is saved and only modified by Confluence if there are conflicting IDs. 
+When content is created, if no macroId is specified, then Confluence will generate a random id. The id is persisted as the content is saved and only modified by Confluence if there are conflicting IDs.
 
 To preserve backwards compatibility this resource will also match on the hash of the macro body, even if a macroId is found. This check will become redundant as pages get macroId's generated for them and transparently propagate out to all instances.
 
@@ -1187,7 +1186,7 @@ To preserve backwards compatibility this resource will also match on the hash of
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/scan`
 
-**Description**: Returns a paginated list of Content. Example request URI(s): 
+**Description**: Returns a paginated list of Content. Example request URI(s):
 
 - `http://example.com/confluence/rest/api/content/scan?spaceKey=TST&limit=100&expand=space,body.view,version,container`
 - `http://example.com/confluence/rest/api/content/scan?limit=100&expand=space,body.view,version,container`
@@ -1203,9 +1202,9 @@ To preserve backwards compatibility this resource will also match on the hash of
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/content/search`
 
-**Description**: Fetch a list of content using the Confluence Query Language (CQL). See: [Advanced searching using CQL](https://developer.atlassian.com/display/CONFDEV/Advanced+Searching+using+CQL) 
+**Description**: Fetch a list of content using the Confluence Query Language (CQL). See: [Advanced searching using CQL](https://developer.atlassian.com/display/CONFDEV/Advanced+Searching+using+CQL)
 
- Example request URI(s): 
+Example request URI(s):
 
 - `http://localhost:8080/confluence/rest/api/content/search?cql=creator=currentUser()&cqlcontext={"spaceKey":"TST", "contentId":"55"}`
 - `http://localhost:8080/confluence/rest/api/content/search?cql=space=DEV AND label=docs&expand=space,metadata.labels&limit=10`
@@ -1221,7 +1220,7 @@ To preserve backwards compatibility this resource will also match on the hash of
 **Method**: `PUT`
 **Path**: `{{basePath}}rest/api/content/:contentId`
 
-**Description**: Updates a piece of Content, including changes to content status. 
+**Description**: Updates a piece of Content, including changes to content status.
 
 To update a piece of content you must increment the `version.number`, supplying the number of the version you are creating. The `title` property can be updated on all content, `body` can be updated on all content that has a body (not attachments). For instance to update the content of a blogpost that currently has version 1:
 
@@ -1229,17 +1228,17 @@ To update a piece of content you must increment the `version.number`, supplying 
 
 ```json
 {
-   "version":{
-       "number": 2
-   },
-   "title":"My new title",
-   "type":"page",
-   "body":{
-        "storage":{
-           "value":"New page data.",
-           "representation":"storage"
-      }
-   }
+  "version": {
+    "number": 2
+  },
+  "title": "My new title",
+  "type": "page",
+  "body": {
+    "storage": {
+      "value": "New page data.",
+      "representation": "storage"
+    }
+  }
 }
 ```
 
@@ -1249,17 +1248,17 @@ To update a page and change its parent page, supply the `ancestors` property wit
 
 ```json
 {
-   "version":{
-       "number": 2
-   },
-   "ancestors": [{"id":789}],
-   "type":"page",
-   "body":{
-        "storage":{
-           "value":"New page data.",
-           "representation":"storage"
-      }
-   }
+  "version": {
+    "number": 2
+  },
+  "ancestors": [{ "id": 789 }],
+  "type": "page",
+  "body": {
+    "storage": {
+      "value": "New page data.",
+      "representation": "storage"
+    }
+  }
 }
 ```
 
@@ -1277,22 +1276,22 @@ Request example to delete a draft:
 
 ```json
 {
-   "id":"2149384202",
-   "status":"current",
-   "version":{
-      "number":4
-   },
-   "space":{
-      "key":"TST"
-   },
-   "type":"page",
-   "title":"page title",
-   "body":{
-      "storage":{
-         "value":"New page data.",
-         "representation":"storage"
-      }
-   }
+  "id": "2149384202",
+  "status": "current",
+  "version": {
+    "number": 4
+  },
+  "space": {
+    "key": "TST"
+  },
+  "type": "page",
+  "title": "page title",
+  "body": {
+    "storage": {
+      "value": "New page data.",
+      "representation": "storage"
+    }
+  }
 }
 ```
 
@@ -1306,32 +1305,30 @@ Request example to set page position to 1
 
 ```json
 {
-   "id":"2149384202",
-   "version":{
-      "number":2
-   },
-   "type":"page",
-   "title":"page title",
-   "position":1
+  "id": "2149384202",
+  "version": {
+    "number": 2
+  },
+  "type": "page",
+  "title": "page title",
+  "position": 1
 }
 ```
 
- Request example to unset page position 
+Request example to unset page position
 
 `PUT /rest/api/content/2149384202`
 
 ```json
 {
-   "id":"2149384202",
-   "version":{
-      "number":2
-   },
-   "type":"page",
-   "position":-1
+  "id": "2149384202",
+  "version": {
+    "number": 2
+  },
+  "type": "page",
+  "position": -1
 }
 ```
-
-
 
 **Headers**:
 
@@ -1392,32 +1389,35 @@ Request example to set page position to 1
 **Method**: `PUT`
 **Path**: `{{basePath}}rest/api/content/:id/restriction`
 
-**Description**: Sets all the restrictions specified to a piece of content identified by `contentId`. Setting per-content restrictions is currently allowed for Pages or BlogPosts only. 
+**Description**: Sets all the restrictions specified to a piece of content identified by `contentId`. Setting per-content restrictions is currently allowed for Pages or BlogPosts only.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/content/1234567/restriction?expand=`
 
-The payload uses the same schema as returned by the GET requests from `/rest/api/content/{id}/restriction/byOperation*` which can be used as a template but is not necessary. 
+The payload uses the same schema as returned by the GET requests from `/rest/api/content/{id}/restriction/byOperation*` which can be used as a template but is not necessary.
 
-Example request for a single content restriction: 
-
-```json
-[ { "operation": "update", "restrictions": { "user": [ { "type": "known", "username": "admin" } ] } } ]
-```
-
-Example request for updating two ContentRestrictions: 
+Example request for a single content restriction:
 
 ```json
-[ { "operation": "update", "restrictions": { "user": [ { "type": "known", "username": "admin" } ] } }, { "operation": "read", "restrictions": { "user": [ { "type": "known", "username": "fred" } ] } } ]
+[{ "operation": "update", "restrictions": { "user": [{ "type": "known", "username": "admin" }] } }]
 ```
 
-Rules for using this method: 
+Example request for updating two ContentRestrictions:
 
-- The provided ContentRestrictions will overwrite any existing restrictions on the Content for the corresponding operations. 
-- If the provided `ContentRestriction` lacks any supported operations, the restrictions for the operations will not be altered. 
-- Setting `users` and/or `groups` map entries as empty arrays will remove the corresponding content restrictions. 
-- Missing `users` and/or `groups` map entries means the corresponding operation's user/group content restrictions won't be changed. 
+```json
+[
+  { "operation": "update", "restrictions": { "user": [{ "type": "known", "username": "admin" }] } },
+  { "operation": "read", "restrictions": { "user": [{ "type": "known", "username": "fred" }] } }
+]
+```
+
+Rules for using this method:
+
+- The provided ContentRestrictions will overwrite any existing restrictions on the Content for the corresponding operations.
+- If the provided `ContentRestriction` lacks any supported operations, the restrictions for the operations will not be altered.
+- Setting `users` and/or `groups` map entries as empty arrays will remove the corresponding content restrictions.
+- Missing `users` and/or `groups` map entries means the corresponding operation's user/group content restrictions won't be changed.
 - Modifying restrictions to revoke the requesting user's access is prohibited.
 
 **Headers**:
@@ -1493,20 +1493,18 @@ If empty list of permissions passed to users/groups, then all their existing per
 
 If users/groups not mentioned in the request, their permissions will not be revoked.
 
-
 Maximum 40 different users/groups could be passed in the request by default
 .
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use
-* application administer
-* system administer
-* personal_space create
-* space create
+- application use
+- application administer
+- system administer
+- personal_space create
+- space create
 
 See Global Permissions documentation for additional information about supported permissions.
-
 
 Example request URI's:
 `https://example.com/confluence/rest/api/permissions`
@@ -1635,8 +1633,8 @@ Operation doesn't override existing permissions, will only add those one that we
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use
-* read user
+- application use
+- read user
 
 Example request URI's:
 
@@ -1665,14 +1663,13 @@ Operation doesn't override existing permissions, will only add those one that we
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use
-* application administer
-* system administer
-* personal_space create
-* space create
+- application use
+- application administer
+- system administer
+- personal_space create
+- space create
 
 See Global Permissions documentation for additional information about supported permissions.
-
 
 Example request URI's:
 
@@ -1701,8 +1698,8 @@ Operation doesn't override existing permissions, will only add those one that we
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use_unlicensed
-* read user
+- application use_unlicensed
+- read user
 
 Example request URI's:
 
@@ -1731,11 +1728,11 @@ Operation doesn't override existing permissions, will only add those one that we
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use
-* application administer
-* system administer
-* personal_space create
-* space create
+- application use
+- application administer
+- system administer
+- personal_space create
+- space create
 
 Example request URI's:
 
@@ -1766,8 +1763,8 @@ When 'application use' is revoked, all granted permissions will be removed from 
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use
-* read user
+- application use
+- read user
 
 Example request URI's:
 
@@ -1796,14 +1793,13 @@ When 'application use' is revoked, all granted permissions will be removed from 
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use
-* application administer
-* system administer
-* personal_space create
-* space create
+- application use
+- application administer
+- system administer
+- personal_space create
+- space create
 
 See Global Permissions documentation for additional information about supported permissions.
-
 
 Example request URI's:
 
@@ -1832,8 +1828,8 @@ When 'application use_unlicensed' is revoked, all granted permissions will be re
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use_unlicensed
-* read user
+- application use_unlicensed
+- read user
 
 Example request URI's:
 
@@ -1862,14 +1858,13 @@ When 'application use' is revoked, all granted permissions will be removed from 
 
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
 
-* application use
-* application administer
-* system administer
-* personal_space create
-* space create
+- application use
+- application administer
+- system administer
+- personal_space create
+- space create
 
 See Global Permissions documentation for additional information about supported permissions.
-
 
 Example request URI's:
 
@@ -1898,8 +1893,6 @@ with username: `https://example.com/confluence/rest/api/permissions/user/{userna
 
 **Description**: Get default color scheme for the instance
 
-
-
 **Headers**:
 
 - `Accept`: `application/json`
@@ -1913,8 +1906,6 @@ with username: `https://example.com/confluence/rest/api/permissions/user/{userna
 
 **Description**: Get information about the current color scheme for the instance
 
-
-
 **Headers**:
 
 - `Accept`: `application/json`
@@ -1927,8 +1918,6 @@ with username: `https://example.com/confluence/rest/api/permissions/user/{userna
 **Path**: `{{basePath}}rest/api/color-scheme`
 
 **Description**: Update the current color scheme of the instance
-
-
 
 **Headers**:
 
@@ -1949,8 +1938,6 @@ with username: `https://example.com/confluence/rest/api/permissions/user/{userna
 **Path**: `{{basePath}}rest/api/color-scheme/reset`
 
 **Description**: Reset the global color scheme colors to default
-
-
 
 **Headers**:
 
@@ -2118,7 +2105,6 @@ This includes information about progress, completion status, elapsed time, and j
 Example request URI:
 `http://example.com/confluence/rest/api/reindex/reindex`
 
-
 **Headers**:
 
 - `Accept`: `application/json`
@@ -2134,10 +2120,10 @@ Example request URI:
 This operation is only available to system administrators and may take significant time to complete.
 
 Example request URI(s):
+
 - `http://example.com/confluence/rest/api/reindex/reindex`
 - `http://example.com/confluence/rest/api/reindex/reindex?option=CONTENT_ONLY&spaceKey=DEMO`
 - `http://example.com/confluence/rest/api/reindex/reindex?option=ATTACHMENT_ONLY&option=CONTENT_ONLY&spaceKey=DEMO&spaceKey=TEST`
-
 
 **Headers**:
 
@@ -2153,7 +2139,6 @@ Example request URI(s):
 **Description**: Resets the status of the current reindex job.
 This is useful when a reindex job has failed and needs to be cleared before starting a new reindex operation.
 This operation is only available to system administrators.
-
 
 **Headers**:
 
@@ -2175,7 +2160,6 @@ Users will not be able to search for content until a reindex is performed.
 
 Example request URI:
 `http://example.com/confluence/rest/api/reindex/unindex`
-
 
 **Headers**:
 
@@ -2363,9 +2347,9 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/space/:spaceKey/content`
 
-**Description**: Returns the content in this given space. 
+**Description**: Returns the content in this given space.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/TEST/content?expand=history`
 
@@ -2380,9 +2364,9 @@ Example request URI:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/space/:spaceKey/trash`
 
-**Description**: Returns the trash contents in this given space. 
+**Description**: Returns the trash contents in this given space.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/TEST/trash?limit=100&cursor=content:false:612345`
 
@@ -2397,7 +2381,7 @@ Example request URI:
 **Method**: `DELETE`
 **Path**: `{{basePath}}rest/api/space/:spaceKey/trash`
 
-**Description**: Remove all content from the trash in the given space, deleting them permanently.Example request URI: 
+**Description**: Remove all content from the trash in the given space, deleting them permanently.Example request URI:
 
 `http://example.com/confluence/rest/api/space/TEST/trash`
 
@@ -2408,9 +2392,9 @@ Example request URI:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/space/:spaceKey/content/:type`
 
-**Description**: Returns the content in this given space with the given type. 
+**Description**: Returns the content in this given space with the given type.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/TEST/content/page?expand=history`
 
@@ -2427,7 +2411,7 @@ Example request URI:
 
 **Description**: Creates a personal space for self.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/personal`
 
@@ -2469,9 +2453,9 @@ Example request URI:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/space`
 
-**Description**: Returns information about a number of spaces. 
+**Description**: Returns information about a number of spaces.
 
-Example request URI(s): 
+Example request URI(s):
 
 `http://example.com/confluence/rest/api/space?spaceKey=TST&spaceKey=ds`
 
@@ -2513,9 +2497,9 @@ Example request URI(s):
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/space/:spaceKey`
 
-**Description**: Returns information about a space. 
+**Description**: Returns information about a space.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/TST?expand=description`
 
@@ -2770,20 +2754,21 @@ Example request URI's:
 **Description**: Grant permissions to anonymous user in the given space.
 Operation doesn't override existing permissions, will only add those one that weren't granted before.
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
-* space read
-* space administer
-* space export
-* space restrict
-* space delete_own
-* space delete_mail
-* page create
-* page delete
-* blogpost create
-* blogpost delete
-* comment create
-* comment delete
-* attachment create
-* attachment delete
+
+- space read
+- space administer
+- space export
+- space restrict
+- space delete_own
+- space delete_mail
+- page create
+- page delete
+- blogpost create
+- blogpost delete
+- comment create
+- comment delete
+- attachment create
+- attachment delete
 
 See Space Permissions documentation for additional information about supported permissions.
 
@@ -2819,20 +2804,21 @@ Example request URI's:
 **Description**: Grant permissions to a group in the given space.
 Operation doesn't override existing permissions, will only add those one that weren't granted before.
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
-* space read
-* space administer
-* space export
-* space restrict
-* space delete_own
-* space delete_mail
-* page create
-* page delete
-* blogpost create
-* blogpost delete
-* comment create
-* comment delete
-* attachment create
-* attachment delete
+
+- space read
+- space administer
+- space export
+- space restrict
+- space delete_own
+- space delete_mail
+- page create
+- page delete
+- blogpost create
+- blogpost delete
+- comment create
+- comment delete
+- attachment create
+- attachment delete
 
 See Space Permissions documentation for additional information about supported permissions.
 
@@ -2868,20 +2854,21 @@ Example request URI's:
 **Description**: Grant permissions to a user in the given space.
 Operation doesn't override existing permissions, will only add those one that weren't granted before.
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
-* space read
-* space administer
-* space export
-* space restrict
-* space delete_own
-* space delete_mail
-* page create
-* page delete
-* blogpost create
-* blogpost delete
-* comment create
-* comment delete
-* attachment create
-* attachment delete
+
+- space read
+- space administer
+- space export
+- space restrict
+- space delete_own
+- space delete_mail
+- page create
+- page delete
+- blogpost create
+- blogpost delete
+- comment create
+- comment delete
+- attachment create
+- attachment delete
 
 See Space Permissions documentation for additional information about supported permissions.
 
@@ -2917,20 +2904,21 @@ Example request URI's:
 **Description**: Revoke permissions from anonymous user in the given space.
 If anonymous user doesn't have permissions that we are trying to revoke, those permissions will be silently skipped.
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
-* space read
-* space administer
-* space export
-* space restrict
-* space delete_own
-* space delete_mail
-* page create
-* page delete
-* blogpost create
-* blogpost delete
-* comment create
-* comment delete
-* attachment create
-* attachment delete
+
+- space read
+- space administer
+- space export
+- space restrict
+- space delete_own
+- space delete_mail
+- page create
+- page delete
+- blogpost create
+- blogpost delete
+- comment create
+- comment delete
+- attachment create
+- attachment delete
 
 See Space Permissions documentation for additional information about supported permissions.
 
@@ -2966,20 +2954,21 @@ Example request URI's:
 **Description**: Revoke permissions from a group in the given space.
 If group doesn't have permissions that we are trying to revoke, those permissions will be silently skipped.
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
-* space read
-* space administer
-* space export
-* space restrict
-* space delete_own
-* space delete_mail
-* page create
-* page delete
-* blogpost create
-* blogpost delete
-* comment create
-* comment delete
-* attachment create
-* attachment delete
+
+- space read
+- space administer
+- space export
+- space restrict
+- space delete_own
+- space delete_mail
+- page create
+- page delete
+- blogpost create
+- blogpost delete
+- comment create
+- comment delete
+- attachment create
+- attachment delete
 
 See Space Permissions documentation for additional information about supported permissions.
 
@@ -3015,20 +3004,21 @@ Example request URI's:
 **Description**: Revoke permissions from a user in the given space.
 If user doesn't have permissions that we are trying to revoke, those permissions will be silently skipped.
 Multiple permissions could be passed in one request. Supported targetType and operationKey pairs:
-* space read
-* space administer
-* space export
-* space restrict
-* space delete_own
-* space delete_mail
-* page create
-* page delete
-* blogpost create
-* blogpost delete
-* comment create
-* comment delete
-* attachment create
-* attachment delete
+
+- space read
+- space administer
+- space export
+- space restrict
+- space delete_own
+- space delete_mail
+- page create
+- page delete
+- blogpost create
+- blogpost delete
+- comment create
+- comment delete
+- attachment create
+- attachment delete
 
 See Space Permissions documentation for additional information about supported permissions.
 
@@ -3063,9 +3053,9 @@ Example request URI's:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/space/:spaceKey/property`
 
-**Description**: Returns a paginated list of space properties. 
+**Description**: Returns a paginated list of space properties.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/TST/property?expand=space,version`
 
@@ -3100,9 +3090,9 @@ Example request URI:
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/space/:spaceKey/property/:key`
 
-**Description**: Returns a space property. 
+**Description**: Returns a space property.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/TST/property/example-property-key?expand=space,version`
 
@@ -3157,9 +3147,9 @@ Example request URI:
 **Method**: `DELETE`
 **Path**: `{{basePath}}rest/api/space/:spaceKey/property/:key`
 
-**Description**: Deletes a space property. 
+**Description**: Deletes a space property.
 
-Example request URI: 
+Example request URI:
 
 `http://example.com/confluence/rest/api/space/TST/property/example-property-key?expand=space,version`
 
@@ -3189,8 +3179,6 @@ Example request URI:
 
 **Description**: Get the current color scheme type used for a space, it can be global or custom
 
-
-
 **Headers**:
 
 - `Accept`: `application/json`
@@ -3203,8 +3191,6 @@ Example request URI:
 **Path**: `{{basePath}}rest/api/space/:spaceKey/color-scheme/type`
 
 **Description**: Update the color scheme type used for a space, currently it can be global or custom
-
-
 
 **Headers**:
 
@@ -3226,8 +3212,6 @@ Example request URI:
 
 **Description**: Get information about the current color scheme for a space
 
-
-
 **Headers**:
 
 - `Accept`: `application/json`
@@ -3240,8 +3224,6 @@ Example request URI:
 **Path**: `{{basePath}}rest/api/space/:spaceKey/color-scheme`
 
 **Description**: Update the color scheme for a space
-
-
 
 **Headers**:
 
@@ -3263,8 +3245,6 @@ Example request URI:
 
 **Description**: Reset the space color scheme to use global color scheme
 
-
-
 **Headers**:
 
 - `Accept`: `application/json`
@@ -3278,9 +3258,9 @@ Example request URI:
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/user/current/password`
 
-**Description**: Change the password for the current user. 
+**Description**: Change the password for the current user.
 
- Validation Rules: 
+Validation Rules:
 
 - New password supplied cannot be null or blank
 
@@ -3338,13 +3318,13 @@ Example request URI(s):
 **Description**: Change the current user's details.
 
 Validation Rules:
+
 - Full name cannot be blank, containing <> characters or be reserved by Confluence.
 - Email must be a valid email address.
 - Current password must be supplied for changing email address.
 
 Example PUT request URI(s):
 `http://example.com/confluence/rest/api/user/current`
-
 
 **Headers**:
 
@@ -3425,12 +3405,12 @@ Example request URI(s):
 **Description**: Update the specified user's settings including their prefered language setting.
 
 Values:
+
 - Username cannot be blank.
 - The user's locale preference can be removed by setting it to "None".
 
 Example PUT request URI(s):
 `http://example.com/confluence/rest/api/user/settings`
-
 
 **Headers**:
 
@@ -3451,7 +3431,7 @@ Example PUT request URI(s):
 **Method**: `PUT`
 **Path**: `{{basePath}}rest/api/user/:username/group/:groupName`
 
-**Description**: Add the given User identified by username to the given Group identified by groupName. 
+**Description**: Add the given User identified by username to the given Group identified by groupName.
 
 This method is idempotent i.e., if the membership already exists then no action will be taken.
 
@@ -3462,7 +3442,7 @@ This method is idempotent i.e., if the membership already exists then no action 
 **Method**: `DELETE`
 **Path**: `{{basePath}}rest/api/user/:username/group/:groupName`
 
-**Description**: Removes the given User identified by username from the given Group identified by groupName. 
+**Description**: Removes the given User identified by username from the given Group identified by groupName.
 
 This method is idempotent i.e., if the membership already exists then no action will be taken.
 
@@ -3475,9 +3455,9 @@ This method is idempotent i.e., if the membership already exists then no action 
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/user/watch/content/:contentId`
 
-**Description**: Get information about whether a user is watching a specified content. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator. 
+**Description**: Get information about whether a user is watching a specified content. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator.
 
- Example request URI(s):
+Example request URI(s):
 
 `http://example.com/confluence/rest/api/user/watch/content/131213`
 `http://example.com/confluence/rest/api/user/watch/content/131213?username=jblogs`
@@ -3494,9 +3474,9 @@ This method is idempotent i.e., if the membership already exists then no action 
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/user/watch/content/:contentId`
 
-**Description**: Create a new watcher for the given user and content id. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator. 
+**Description**: Create a new watcher for the given user and content id. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator.
 
- Example request URI(s):
+Example request URI(s):
 
 `http://example.com/confluence/rest/api/user/watch/content/131213`
 `http://example.com/confluence/rest/api/user/watch/content/131213?username=jblogs`
@@ -3513,9 +3493,9 @@ This method is idempotent i.e., if the membership already exists then no action 
 **Method**: `DELETE`
 **Path**: `{{basePath}}rest/api/user/watch/content/:contentId`
 
-**Description**: Delete an existing watcher for the given user and content id. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator. 
+**Description**: Delete an existing watcher for the given user and content id. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator.
 
- Example request URI(s):
+Example request URI(s):
 
 `http://example.com/confluence/rest/api/user/watch/content/131213`
 `http://example.com/confluence/rest/api/user/watch/content/131213?username=jblogs`
@@ -3528,9 +3508,9 @@ This method is idempotent i.e., if the membership already exists then no action 
 **Method**: `GET`
 **Path**: `{{basePath}}rest/api/user/watch/space/:spaceKey`
 
-**Description**: Get information about whether a user is watching a specified space. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator. 
+**Description**: Get information about whether a user is watching a specified space. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator.
 
- Example request URI(s):
+Example request URI(s):
 
 `http://example.com/confluence/rest/api/user/watch/space/SPACEKEY`
 `http://example.com/confluence/rest/api/user/watch/space/SPACEKEY?username=jblogs`
@@ -3548,9 +3528,9 @@ This method is idempotent i.e., if the membership already exists then no action 
 **Method**: `POST`
 **Path**: `{{basePath}}rest/api/user/watch/space/:spaceKey`
 
-**Description**: Create a new watcher for the given user and space key. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator. 
+**Description**: Create a new watcher for the given user and space key. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator.
 
- Example request URI(s):
+Example request URI(s):
 
 `http://example.com/confluence/rest/api/user/watch/space/SPACEKEY`
 `http://example.com/confluence/rest/api/user/watch/space/SPACEKEY?username=jblogs`
@@ -3568,9 +3548,9 @@ This method is idempotent i.e., if the membership already exists then no action 
 **Method**: `DELETE`
 **Path**: `{{basePath}}rest/api/user/watch/space/:spaceKey`
 
-**Description**: Delete an existing watcher for the given user and space key. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator. 
+**Description**: Delete an existing watcher for the given user and space key. User is optional. If not specified, currently logged-in user will be used. Otherwise, it can be specified by either user key or username. When a user is specified and is different from the logged-in user, the logged-in user needs to be a Confluence administrator.
 
- Example request URI(s):
+Example request URI(s):
 
 `http://example.com/confluence/rest/api/user/watch/space/SPACEKEY`
 `http://example.com/confluence/rest/api/user/watch/space/SPACEKEY?username=jblogs`
@@ -3626,12 +3606,12 @@ This method is idempotent i.e., if the membership already exists then no action 
 
 ---
 
-###  Update webhook
+### Update webhook
 
 **Method**: `PUT`
 **Path**: `{{basePath}}rest/api/webhooks/:webhookId`
 
-**Description**:  Update an existing webhook. The authenticated user must be an administrator to call this resource.
+**Description**: Update an existing webhook. The authenticated user must be an administrator to call this resource.
 
 **Headers**:
 
@@ -3821,11 +3801,7 @@ This method is idempotent i.e., if the membership already exists then no action 
   "properties": {
     "keys": {
       "type": "array",
-      "example": [
-        "key1",
-        "key2",
-        "key3"
-      ],
+      "example": ["key1", "key2", "key3"],
       "items": {
         "type": "string",
         "example": "[\"key1\",\"key2\",\"key3\"]"
@@ -3833,11 +3809,7 @@ This method is idempotent i.e., if the membership already exists then no action 
     },
     "contexts": {
       "type": "array",
-      "example": [
-        "context1",
-        "context2",
-        "context3"
-      ],
+      "example": ["context1", "context2", "context3"],
       "items": {
         "type": "string",
         "example": "[\"context1\",\"context2\",\"context3\"]"
@@ -4034,10 +4006,7 @@ This method is idempotent i.e., if the membership already exists then no action 
     "metadata": {
       "type": "object",
       "example": {
-        "labels": [
-          "label1",
-          "label2"
-        ]
+        "labels": ["label1", "label2"]
       }
     },
     "retentionPolicy": {
@@ -4123,14 +4092,7 @@ This method is idempotent i.e., if the membership already exists then no action 
   "properties": {
     "cursorType": {
       "type": "string",
-      "enum": [
-        "SPACE",
-        "CONTENT",
-        "BLOG_POST",
-        "COMMENT",
-        "SYNC",
-        "ATTACHMENT"
-      ]
+      "enum": ["SPACE", "CONTENT", "BLOG_POST", "COMMENT", "SYNC", "ATTACHMENT"]
     },
     "reverse": {
       "type": "boolean"
@@ -4903,18 +4865,12 @@ This method is idempotent i.e., if the membership already exists then no action 
     "jobOperation": {
       "type": "string",
       "example": "BACKUP",
-      "enum": [
-        "BACKUP",
-        "RESTORE"
-      ]
+      "enum": ["BACKUP", "RESTORE"]
     },
     "jobScope": {
       "type": "string",
       "example": "SITE",
-      "enum": [
-        "SPACE",
-        "SITE"
-      ]
+      "enum": ["SPACE", "SITE"]
     },
     "jobState": {
       "type": "string",
@@ -5004,10 +4960,7 @@ This method is idempotent i.e., if the membership already exists then no action 
     "jobScope": {
       "type": "string",
       "example": "SITE",
-      "enum": [
-        "SPACE",
-        "SITE"
-      ]
+      "enum": ["SPACE", "SITE"]
     }
   }
 }
@@ -6527,11 +6480,7 @@ This method is idempotent i.e., if the membership already exists then no action 
     },
     "outcome": {
       "type": "string",
-      "enum": [
-        "ERROR",
-        "FAILURE",
-        "SUCCESS"
-      ]
+      "enum": ["ERROR", "FAILURE", "SUCCESS"]
     }
   }
 }
@@ -6550,14 +6499,7 @@ This method is idempotent i.e., if the membership already exists then no action 
     },
     "method": {
       "type": "string",
-      "enum": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE",
-        "OPTIONS",
-        "HEAD"
-      ]
+      "enum": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"]
     },
     "url": {
       "type": "string"
@@ -6684,18 +6626,12 @@ This method is idempotent i.e., if the membership already exists then no action 
     "jobOperation": {
       "type": "string",
       "example": "BACKUP",
-      "enum": [
-        "BACKUP",
-        "RESTORE"
-      ]
+      "enum": ["BACKUP", "RESTORE"]
     },
     "jobScope": {
       "type": "string",
       "example": "SITE",
-      "enum": [
-        "SPACE",
-        "SITE"
-      ]
+      "enum": ["SPACE", "SITE"]
     },
     "jobState": {
       "type": "string",
@@ -6785,18 +6721,12 @@ This method is idempotent i.e., if the membership already exists then no action 
     "jobOperation": {
       "type": "string",
       "example": "BACKUP",
-      "enum": [
-        "BACKUP",
-        "RESTORE"
-      ]
+      "enum": ["BACKUP", "RESTORE"]
     },
     "jobScope": {
       "type": "string",
       "example": "SITE",
-      "enum": [
-        "SPACE",
-        "SITE"
-      ]
+      "enum": ["SPACE", "SITE"]
     },
     "jobState": {
       "type": "string",
@@ -6886,18 +6816,12 @@ This method is idempotent i.e., if the membership already exists then no action 
     "jobOperation": {
       "type": "string",
       "example": "BACKUP",
-      "enum": [
-        "BACKUP",
-        "RESTORE"
-      ]
+      "enum": ["BACKUP", "RESTORE"]
     },
     "jobScope": {
       "type": "string",
       "example": "SITE",
-      "enum": [
-        "SPACE",
-        "SITE"
-      ]
+      "enum": ["SPACE", "SITE"]
     },
     "jobState": {
       "type": "string",
@@ -6987,18 +6911,12 @@ This method is idempotent i.e., if the membership already exists then no action 
     "jobOperation": {
       "type": "string",
       "example": "BACKUP",
-      "enum": [
-        "BACKUP",
-        "RESTORE"
-      ]
+      "enum": ["BACKUP", "RESTORE"]
     },
     "jobScope": {
       "type": "string",
       "example": "SITE",
-      "enum": [
-        "SPACE",
-        "SITE"
-      ]
+      "enum": ["SPACE", "SITE"]
     },
     "jobState": {
       "type": "string",
@@ -7322,4 +7240,3 @@ This method is idempotent i.e., if the membership already exists then no action 
 - **POST**: 33 endpoints
 - **DELETE**: 17 endpoints
 - **PUT**: 39 endpoints
-

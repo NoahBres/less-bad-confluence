@@ -125,7 +125,9 @@
   border: 1px solid var(--gray-3);
   border-radius: var(--border-radius);
   background: var(--white);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
   &:last-child {
     margin-bottom: 0;
@@ -152,7 +154,9 @@
     align-items: center;
     justify-content: center;
     font-size: 0.875rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
     &:hover {
       background: var(--gray-1);
@@ -209,7 +213,9 @@
   min-height: 300px;
   outline: none;
   background: var(--white);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
   &:focus {
     border-color: var(--purple-light);

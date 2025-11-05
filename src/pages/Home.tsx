@@ -1,21 +1,20 @@
-import React from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router';
 
 export function Home() {
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-foreground mb-4">Less Bad Confluence</h1>
-        <p className="text-lg text-muted-foreground mb-8">Welcome to your confluence workspace.</p>
+    <div className="bg-background min-h-screen p-8">
+      <div className="mx-auto max-w-4xl">
+        <h1 className="text-foreground mb-4 text-4xl font-bold">Less Bad Confluence</h1>
+        <p className="text-muted-foreground mb-8 text-lg">Welcome to your confluence workspace.</p>
 
         <div className="space-y-6">
-          <h2 className="text-2xl font-semibold text-foreground">Recent Spaces</h2>
+          <h2 className="text-foreground text-2xl font-semibold">Recent Spaces</h2>
           <ul className="space-y-3">
             <li>
               <Link
                 to="/spaces/$spaceKey"
-                params={{ spaceKey: "DEMO" }}
-                className="text-primary hover:text-primary/80 underline text-lg transition-colors"
+                params={{ spaceKey: 'DEMO' }}
+                className="text-primary hover:text-primary/80 text-lg underline transition-colors"
               >
                 Demo Space
               </Link>
@@ -23,8 +22,8 @@ export function Home() {
             <li>
               <Link
                 to="/spaces/$spaceKey"
-                params={{ spaceKey: "PROJ" }}
-                className="text-primary hover:text-primary/80 underline text-lg transition-colors"
+                params={{ spaceKey: 'PROJ' }}
+                className="text-primary hover:text-primary/80 text-lg underline transition-colors"
               >
                 Project Space
               </Link>

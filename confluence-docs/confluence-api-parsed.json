@@ -3533,11 +3533,7 @@
       "properties": {
         "keys": {
           "type": "array",
-          "example": [
-            "key1",
-            "key2",
-            "key3"
-          ],
+          "example": ["key1", "key2", "key3"],
           "items": {
             "type": "string",
             "example": "[\"key1\",\"key2\",\"key3\"]"
@@ -3545,11 +3541,7 @@
         },
         "contexts": {
           "type": "array",
-          "example": [
-            "context1",
-            "context2",
-            "context3"
-          ],
+          "example": ["context1", "context2", "context3"],
           "items": {
             "type": "string",
             "example": "[\"context1\",\"context2\",\"context3\"]"
@@ -3706,10 +3698,7 @@
         "metadata": {
           "type": "object",
           "example": {
-            "labels": [
-              "label1",
-              "label2"
-            ]
+            "labels": ["label1", "label2"]
           }
         },
         "retentionPolicy": {
@@ -3775,14 +3764,7 @@
       "properties": {
         "cursorType": {
           "type": "string",
-          "enum": [
-            "SPACE",
-            "CONTENT",
-            "BLOG_POST",
-            "COMMENT",
-            "SYNC",
-            "ATTACHMENT"
-          ]
+          "enum": ["SPACE", "CONTENT", "BLOG_POST", "COMMENT", "SYNC", "ATTACHMENT"]
         },
         "reverse": {
           "type": "boolean"
@@ -4390,18 +4372,12 @@
         "jobOperation": {
           "type": "string",
           "example": "BACKUP",
-          "enum": [
-            "BACKUP",
-            "RESTORE"
-          ]
+          "enum": ["BACKUP", "RESTORE"]
         },
         "jobScope": {
           "type": "string",
           "example": "SITE",
-          "enum": [
-            "SPACE",
-            "SITE"
-          ]
+          "enum": ["SPACE", "SITE"]
         },
         "jobState": {
           "type": "string",
@@ -4486,10 +4462,7 @@
         "jobScope": {
           "type": "string",
           "example": "SITE",
-          "enum": [
-            "SPACE",
-            "SITE"
-          ]
+          "enum": ["SPACE", "SITE"]
         }
       }
     },
@@ -5719,11 +5692,7 @@
         },
         "outcome": {
           "type": "string",
-          "enum": [
-            "ERROR",
-            "FAILURE",
-            "SUCCESS"
-          ]
+          "enum": ["ERROR", "FAILURE", "SUCCESS"]
         }
       }
     },
@@ -5737,14 +5706,7 @@
         },
         "method": {
           "type": "string",
-          "enum": [
-            "GET",
-            "POST",
-            "PUT",
-            "DELETE",
-            "OPTIONS",
-            "HEAD"
-          ]
+          "enum": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"]
         },
         "url": {
           "type": "string"
@@ -5856,18 +5818,12 @@
         "jobOperation": {
           "type": "string",
           "example": "BACKUP",
-          "enum": [
-            "BACKUP",
-            "RESTORE"
-          ]
+          "enum": ["BACKUP", "RESTORE"]
         },
         "jobScope": {
           "type": "string",
           "example": "SITE",
-          "enum": [
-            "SPACE",
-            "SITE"
-          ]
+          "enum": ["SPACE", "SITE"]
         },
         "jobState": {
           "type": "string",
@@ -5952,18 +5908,12 @@
         "jobOperation": {
           "type": "string",
           "example": "BACKUP",
-          "enum": [
-            "BACKUP",
-            "RESTORE"
-          ]
+          "enum": ["BACKUP", "RESTORE"]
         },
         "jobScope": {
           "type": "string",
           "example": "SITE",
-          "enum": [
-            "SPACE",
-            "SITE"
-          ]
+          "enum": ["SPACE", "SITE"]
         },
         "jobState": {
           "type": "string",
@@ -6048,18 +5998,12 @@
         "jobOperation": {
           "type": "string",
           "example": "BACKUP",
-          "enum": [
-            "BACKUP",
-            "RESTORE"
-          ]
+          "enum": ["BACKUP", "RESTORE"]
         },
         "jobScope": {
           "type": "string",
           "example": "SITE",
-          "enum": [
-            "SPACE",
-            "SITE"
-          ]
+          "enum": ["SPACE", "SITE"]
         },
         "jobState": {
           "type": "string",
@@ -6144,18 +6088,12 @@
         "jobOperation": {
           "type": "string",
           "example": "BACKUP",
-          "enum": [
-            "BACKUP",
-            "RESTORE"
-          ]
+          "enum": ["BACKUP", "RESTORE"]
         },
         "jobScope": {
           "type": "string",
           "example": "SITE",
-          "enum": [
-            "SPACE",
-            "SITE"
-          ]
+          "enum": ["SPACE", "SITE"]
         },
         "jobState": {
           "type": "string",

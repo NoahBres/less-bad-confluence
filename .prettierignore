@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.next
+coverage
+.nyc_output
+*.lock
+bun.lock
+package-lock.json
+yarn.lock
+.git
+.DS_Store

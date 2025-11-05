@@ -1,12 +1,11 @@
-import './styles.scss'
+import { TextStyleKit } from '@tiptap/extension-text-style';
+import type { Editor } from '@tiptap/react';
+import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 
-import { TextStyleKit } from '@tiptap/extension-text-style'
-import type { Editor } from '@tiptap/react'
-import { EditorContent, useEditor, useEditorState } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import React from 'react'
+import './styles.scss';
 
-const extensions = [TextStyleKit, StarterKit]
+const extensions = [TextStyleKit, StarterKit];
 
 function MenuBar({ editor }: { editor: Editor }) {
   const editorState = useEditorState({
@@ -35,9 +34,9 @@ function MenuBar({ editor }: { editor: Editor }) {
         isBlockquote: ctx.editor.isActive('blockquote') ?? false,
         canUndo: ctx.editor.can().chain().undo().run() ?? false,
         canRedo: ctx.editor.can().chain().redo().run() ?? false,
-      }
+      };
     },
-  })
+  });
 
   return (
     <div className="control-group">
@@ -138,7 +137,9 @@ function MenuBar({ editor }: { editor: Editor }) {
         >
           Blockquote
         </button>
-        <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>Horizontal rule</button>
+        <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+          Horizontal rule
+        </button>
         <button onClick={() => editor.chain().focus().setHardBreak().run()}>Hard break</button>
         <button onClick={() => editor.chain().focus().undo().run()} disabled={!editorState.canUndo}>
           Undo
@@ -148,7 +149,7 @@ function MenuBar({ editor }: { editor: Editor }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default function EditorPage() {
@@ -184,12 +185,12 @@ export default function EditorPage() {
   — Mom
 </blockquote>
 `,
-  })
+  });
 
   return (
     <div>
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>
-  )
+  );
 }
