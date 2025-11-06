@@ -8,11 +8,8 @@ import { PageSidebarInset } from './page-sidebar-inset';
 export function PageComponent() {
   // const { spaceKey, pageId } = Route.useParams();
 
-  const defaultOpen = true;
-  const [sidebarWidth, setSidebarWidth] = useState('25rem');
-
   return (
-    <SidebarProvider defaultOpen={defaultOpen} defaultWidth={sidebarWidth}>
+    <SidebarProvider defaultOpen={true} defaultWidth="25rem">
       <PageSidebar>
         <PageSidebarInset>
           <div>content</div>
