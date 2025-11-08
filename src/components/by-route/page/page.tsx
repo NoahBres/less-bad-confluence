@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { SidebarProvider } from '@/components/ui/sidebar';
 
 import { PageSidebar } from './page-sidebar';
