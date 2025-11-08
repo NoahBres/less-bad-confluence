@@ -41,7 +41,10 @@ export function PageComponent() {
                 <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">{data.title}</h1>
                 <div className="prose prose-slate max-w-none">
                   {/* Actual content will go here */}
-                  <p className="text-base leading-7 text-gray-700 mb-4">Content</p>
+                  <div
+                    className="text-base leading-7 text-gray-700 mb-4"
+                    dangerouslySetInnerHTML={{ __html: data.body.view.value }}
+                  />
                 </div>
               </main>
             )}

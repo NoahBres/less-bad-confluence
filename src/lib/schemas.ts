@@ -86,14 +86,14 @@ const BodyContentSchema = z.object({
   value: z.string(),
   representation: z.string().optional(),
   _expandable: ExpandableSchema,
-}).partial();
+});
 
 // Body schema with partial validation
 const BodySchema = z.object({
   storage: BodyContentSchema.optional(),
-  view: BodyContentSchema.optional(),
+  view: BodyContentSchema,
   _expandable: ExpandableSchema,
-}).partial();
+});
 
 // Main Confluence Page schema - focusing on essential fields
 export const ConfluencePageSchema = z.object({
@@ -107,7 +107,7 @@ export const ConfluencePageSchema = z.object({
   ancestors: z.array(AncestorSchema).optional(),
   position: z.number().optional(),
   container: SpaceSchema.optional(),
-  body: BodySchema.optional(),
+  body: BodySchema,
   extensions: z.object({
     position: z.union([z.string(), z.number()]),
   }).optional(),
@@ -134,8 +134,8 @@ export const ConfluencePageEssentialSchema = z.object({
     }).partial(),
     view: z.object({
       value: z.string(),
-    }).partial(),
-  }).partial(),
+    }),
+  }),
 });
 
 export type ConfluencePageEssential = z.infer<typeof ConfluencePageEssentialSchema>;
