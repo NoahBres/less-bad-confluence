@@ -1,8 +1,8 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
   component: HomeComponent,
-})
+});
 
 function HomeComponent() {
   return (
@@ -34,13 +34,13 @@ function HomeComponent() {
             </li>
           </ul>
 
-          <div className="mt-8 pt-6 border-t border-border">
-            <h2 className="text-foreground text-2xl font-semibold mb-4">Quick Links</h2>
+          <div className="border-border mt-8 border-t pt-6">
+            <h2 className="text-foreground mb-4 text-2xl font-semibold">Quick Links</h2>
             <ul className="space-y-3">
               <li>
                 <Link
                   to="/spaces/$spaceKey/$pageId"
-                  params={{ spaceKey: 'DEMO', pageId: 'sample-page' }}
+                  params={{ spaceKey: 'TRSD', pageId: '272568861' }}
                   className="text-primary hover:text-primary/80 text-lg underline transition-colors"
                 >
                   Sample Page
@@ -51,5 +51,5 @@ function HomeComponent() {
         </div>
       </div>
     </div>
-  )
+  );
 }
