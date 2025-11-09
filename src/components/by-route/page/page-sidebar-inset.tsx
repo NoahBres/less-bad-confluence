@@ -11,7 +11,7 @@ import { SidebarInset } from '@/components/ui/sidebar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-export function PageSidebarInset({ children }: { children: React.ReactNode }) {
+export function PageSidebarInset({ children, title }: { children: React.ReactNode; title?: string }) {
   return (
     <SidebarInset className="overflow-x-hidden">
       <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -36,7 +36,7 @@ export function PageSidebarInset({ children }: { children: React.ReactNode }) {
                   Sidebar is only resizable on desktop
                 </BreadcrumbPage>
                 <BreadcrumbPage className="hidden md:block">
-                  Anvil SW - 17.2 Zone Setting Runbook
+                  {title || ""}
                 </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
