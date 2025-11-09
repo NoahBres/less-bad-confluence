@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { Route } from '@/routes/spaces/$spaceKey/$pageId';
+import { useMemo } from 'react';
 
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { fetchConfluencePage } from '@/lib/api';
+import { confluenceHtmlToTipTapJson } from '@/lib/confluence-to-tiptap';
 
 import { PageSidebar } from './page-sidebar';
 import { PageSidebarInset } from './page-sidebar-inset';
@@ -16,6 +18,22 @@ export function PageComponent() {
     queryKey: ['confluencePage', pageId],
     queryFn: () => fetchConfluencePage(pageId),
   });
+
+  // Convert Confluence XML/XHTML (storage format) to TipTap JSON format
+  const tipTapContent = useMemo(() => {
+    if (!data?.body.storage?.value) return null;
+
+    console.log('Original Confluence XML:', data.body.storage.value);
+
+    try {
+      const jsonContent = confluenceHtmlToTipTapJson(data.body.storage.value);
+      console.log('Converted to TipTap JSON:', jsonContent);
+      return jsonContent;
+    } catch (e) {
+      console.error('Failed to convert Confluence XML to TipTap JSON:', e);
+      return null;
+    }
+  }, [data?.body.storage?.value]);
 
   return (
     <SidebarProvider defaultOpen={true} defaultWidth="25rem">
@@ -35,11 +53,11 @@ export function PageComponent() {
               </div>
             )}
             {error && <div>Error: {error.message}</div>}
-            {data && (
+            {data && tipTapContent && (
               <main className="max-w-3xl mx-auto px-4 py-8 prose prose-slate">
                 <h1 className="text-3xl font-medium tracking-tight text-gray-950 dark:text-white mb-6">{data.title}</h1>
                 <article className="">
-                  <EditorPage content={data.body.view.value} />
+                  <EditorPage content={tipTapContent} />
                 </article>
               </main>
             )}

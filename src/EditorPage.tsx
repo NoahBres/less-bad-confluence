@@ -1,10 +1,12 @@
 import { TextStyleKit } from '@tiptap/extension-text-style';
-import type { Editor } from '@tiptap/react';
+import type { Editor, JSONContent } from '@tiptap/react';
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 const extensions = [TextStyleKit, StarterKit];
 
+// MenuBar is currently disabled but kept for future use
+// @ts-expect-error - MenuBar is commented out but kept for future use
 function MenuBar({ editor }: { editor: Editor }) {
   const editorState = useEditorState({
     editor,
@@ -150,9 +152,9 @@ function MenuBar({ editor }: { editor: Editor }) {
   );
 }
 
-export default function EditorPage({ content }: { content: string }) {
+export default function EditorPage({ content }: { content: JSONContent }) {
   const editor = useEditor({
-    editable: false,
+    editable: true,
     extensions,
     content,
   });
