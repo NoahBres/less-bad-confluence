@@ -115,7 +115,7 @@ export async function fetchConfluencePage(pageId: string): Promise<ConfluencePag
       console.log(`[DEV MODE] Using mock data for page ID: ${pageId}`);
       return samplePageResponse;
     }
-    
+
     // Normal API request flow
     const endpoint = `https://confluence.anduril.dev/rest/api/content/${pageId}?expand=body.storage,body.view,history,space,version,ancestors,container`;
 
