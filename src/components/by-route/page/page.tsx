@@ -7,6 +7,7 @@ import { fetchConfluencePage } from '@/lib/api';
 
 import { PageSidebar } from './page-sidebar';
 import { PageSidebarInset } from './page-sidebar-inset';
+import EditorPage from '@/EditorPage';
 
 export function PageComponent() {
   const { pageId } = Route.useParams();
@@ -16,7 +17,7 @@ export function PageComponent() {
     queryFn: () => fetchConfluencePage(pageId),
   });
 
-  console.log(data);
+  console.log(data?.body.view.value);
 
   return (
     <SidebarProvider defaultOpen={true} defaultWidth="25rem">
@@ -37,15 +38,11 @@ export function PageComponent() {
             )}
             {error && <div>Error: {error.message}</div>}
             {data && (
-              <main className="max-w-3xl mx-auto px-4 py-8">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">{data.title}</h1>
-                <div className="prose prose-slate max-w-none">
-                  {/* Actual content will go here */}
-                  <div
-                    className="text-base leading-7 text-gray-700 mb-4"
-                    dangerouslySetInnerHTML={{ __html: data.body.view.value }}
-                  />
-                </div>
+              <main className="max-w-3xl mx-auto px-4 py-8 prose prose-slate">
+                <h1 className="text-3xl font-medium tracking-tight text-gray-950 dark:text-white mb-6">{data.title}</h1>
+                <article className="">
+                  <EditorPage content={data.body.view.value} />
+                </article>
               </main>
             )}
           </div>
