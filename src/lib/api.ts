@@ -3,7 +3,27 @@
  */
 import { ConfluencePageSchema, ConfluencePageEssentialSchema, type ConfluencePage } from './schemas';
 
+// Try to import sample data, but don't error if it doesn't exist
+const samplePageResponse = await (async (): Promise<any> => {
+  try {
+    // Using dynamic import to avoid build errors if file doesn't exist
+    return await import('./sample_page_response.json')
+      .then(module => module.default)
+      .catch(() => {
+        console.warn('Sample page response data not found. Mock mode will be disabled.');
+        return null;
+      });
+  } catch (error) {
+    console.warn('Sample page response data not found. Mock mode will be disabled.');
+    return null;
+  }
+})()
+
 export const API_TOKEN = import.meta.env.VITE_CONFLUENCE_TOKEN;
+
+// Developer mode flag to use mock data instead of making real API requests
+// Will be automatically disabled if sample data is not available
+export const USE_MOCK_DATA = samplePageResponse !== null && true;
 
 /**
  * Utility functions for working with Confluence page data
@@ -89,21 +109,31 @@ export class ConfluenceValidationError extends Error {
  * @throws Error if the API request fails or if the response doesn't match the expected schema
  */
 export async function fetchConfluencePage(pageId: string): Promise<ConfluencePage> {
-  const endpoint = `https://confluence.anduril.dev/rest/api/content/${pageId}?expand=body.storage,body.view,history,space,version,ancestors,container`;
+  // Get data either from mock or API based on developer mode setting
+  const data = await (async () => {
+    if (USE_MOCK_DATA && samplePageResponse) {
+      console.log(`[DEV MODE] Using mock data for page ID: ${pageId}`);
+      return samplePageResponse;
+    }
+    
+    // Normal API request flow
+    const endpoint = `https://confluence.anduril.dev/rest/api/content/${pageId}?expand=body.storage,body.view,history,space,version,ancestors,container`;
 
-  const response = await fetch(endpoint, {
-    headers: {
-      Authorization: `Bearer ${API_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-  });
+    const response = await fetch(endpoint, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
-  }
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    }
 
-  const data = await response.json();
+    return await response.json();
+  })();
 
+  // Validate data regardless of source
   try {
     // First validate essential fields (will throw if basic structure is wrong)
     ConfluencePageEssentialSchema.parse(data);
@@ -111,7 +141,7 @@ export async function fetchConfluencePage(pageId: string): Promise<ConfluencePag
     // Then parse with the complete schema (for type safety)
     return ConfluencePageSchema.parse(data);
   } catch (error) {
-    console.error('Confluence API validation error:', error);
-    throw new ConfluenceValidationError('API response did not match expected schema', error);
+    console.error('Data validation error:', error);
+    throw new ConfluenceValidationError('Data did not match expected schema', error);
   }
 }

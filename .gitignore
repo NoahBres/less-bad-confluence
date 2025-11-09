@@ -28,3 +28,6 @@ dist-ssr
 
 # Environment variables
 .env*
+
+# Sample data for development
+src/lib/sample_page_response.json
